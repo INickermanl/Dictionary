@@ -20,7 +20,7 @@ public class AddWord extends BaseActivity {
         setContentView(R.layout.activity_add_word);
         root = findViewById(R.id.root);
         view = new AddWordView(root);
-        presenter = new AddWordPresenter();
+        presenter = new AddWordPresenter(getApplication());
 
 
     }

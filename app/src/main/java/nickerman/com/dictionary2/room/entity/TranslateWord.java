@@ -5,7 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "translate_word")
+@Entity(tableName = "words")
 public class TranslateWord {
 
     @PrimaryKey(autoGenerate = true)
@@ -23,6 +23,14 @@ public class TranslateWord {
     public TranslateWord(String englishWord, String translateWord) {
 
         this.englishWord = englishWord;
+        this.translateWord = translateWord;
+    }
+
+    public void setEnglishWord(String englishWord) {
+        this.englishWord = englishWord;
+    }
+
+    public void setTranslateWord(String translateWord) {
         this.translateWord = translateWord;
     }
 

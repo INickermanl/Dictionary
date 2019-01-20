@@ -8,7 +8,7 @@
     tools:context=".AddWord">
 
     <EditText
-        android:id="@+id/english_words"
+        android:id="@+id/english_word"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="70dp"
@@ -25,7 +25,7 @@
 
     <EditText
         android:textColor="@color/colorBlack"
-        android:id="@+id/translate_words"
+        android:id="@+id/translate_word"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="40dp"
@@ -37,7 +37,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/english_words" />
+        app:layout_constraintTop_toBottomOf="@+id/english_word" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/add_button"
@@ -48,9 +48,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toBottomOf="@id/translate_words">
+        app:layout_constraintTop_toBottomOf="@id/translate_word">
 
         <TextView
+            android:id="@+id/action_button_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="add"

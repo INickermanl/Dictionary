@@ -1,48 +1,54 @@
 package nickerman.com.dictionary2.room.repository;
 
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
-import android.os.AsyncTask;
-
 import java.util.List;
 
-import nickerman.com.dictionary2.room.TranslateWordRoomDatabase;
-import nickerman.com.dictionary2.room.dao.TranslateWordDAO;
+import io.reactivex.Flowable;
 import nickerman.com.dictionary2.room.entity.TranslateWord;
 
+public class Repository implements IWordDataSource {
 
-public class Repository {
+    private IWordDataSource mLocalDaoSource;
+    private static Repository mInstance;
 
-    private TranslateWordDAO translateWordDAO;
-    private LiveData<List<TranslateWord>> allTranslateWords;
-
-    public Repository(Application application) {
-
-        TranslateWordRoomDatabase roomDatabase = TranslateWordRoomDatabase.getINSTANCE(application);
-        this.translateWordDAO = roomDatabase.translateWordDAO();
-        this.allTranslateWords = translateWordDAO.getAllWords();
-
+    public Repository(IWordDataSource mLocalDataSource) {
+        this.mLocalDaoSource = mLocalDataSource;
     }
 
-    public LiveData<List<TranslateWord>> getAllTranslateWords(){
-        return this.allTranslateWords;
+    public static Repository getInstance(IWordDataSource mLocalDataSource) {
+        if (mInstance == null) {
+            mInstance = new Repository(mLocalDataSource);
+        }
+        return mInstance;
     }
 
 
+    @Override
+    public Flowable<TranslateWord> getTranslateWordById(int translateId) {
+        return mLocalDaoSource.getTranslateWordById(translateId);
+    }
 
+    @Override
+    public Flowable<List<TranslateWord>> getAllWords() {
+        return mLocalDaoSource.getAllWords();
+    }
 
+    @Override
+    public void insertWord(TranslateWord... translateWord) {
+        mLocalDaoSource.insertWord(translateWord);
+    }
 
-    private static class insertAsyncTask extends AsyncTask<TranslateWord,Void,Void>{
-        private TranslateWordDAO asyncDAO;
+    @Override
+    public void updateWord(TranslateWord... translateWords) {
+        mLocalDaoSource.updateWord(translateWords);
+    }
 
-        public insertAsyncTask(TranslateWordDAO asyncDAO) {
-            this.asyncDAO = asyncDAO;
-        }
+    @Override
+    public void deleteWord(TranslateWord translateWord) {
+        mLocalDaoSource.deleteWord(translateWord);
+    }
 
-        @Override
-        protected Void doInBackground( final TranslateWord... translateWords) {
-            asyncDAO.insert(translateWords[0]);
-            return null;
-        }
+    @Override
+    public void deleteAllWords() {
+        mLocalDaoSource.deleteAllWords();
     }
 }

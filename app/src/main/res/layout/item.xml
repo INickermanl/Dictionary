@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/english_words"
+        android:id="@+id/english_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -25,12 +25,12 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/translate_words"
+        app:layout_constraintEnd_toStartOf="@id/translate_word"
         app:layout_constraintStart_toEndOf="@id/number_of_word"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/translate_words"
+        android:id="@+id/translate_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -40,7 +40,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/edit_constraint"
-        app:layout_constraintStart_toEndOf="@id/english_words"
+        app:layout_constraintStart_toEndOf="@id/english_word"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout

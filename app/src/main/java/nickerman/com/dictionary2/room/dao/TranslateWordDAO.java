@@ -2,24 +2,39 @@ package nickerman.com.dictionary2.room.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import nickerman.com.dictionary2.room.entity.TranslateWord;
 
 
 @Dao
 public interface TranslateWordDAO {
 
+
+    @Query("SELECT * FROM words WHERE id=:translateId")
+    Flowable<TranslateWord> getTranslateWordById(int translateId);
+
+    @Query("SELECT * FROM words")
+    Flowable<List<TranslateWord>> getAllWords();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(TranslateWord translateWord);
+    void insertWord(TranslateWord... translateWord);
 
-    @Query("DELETE FROM translate_word")
-    void deleteAll();
+    @Update
+    void updateWord(TranslateWord... translateWords);
 
-    @Query("SELECT * FROM translate_word")
-    LiveData<List<TranslateWord>> getAllWords();
+    @Delete
+    void deleteWord(TranslateWord translateWord);
+
+    @Query("DELETE FROM words")
+    void deleteAllWords();
 }

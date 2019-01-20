@@ -1,17 +1,19 @@
 package nickerman.com.dictionary2.screens.add_word;
 
 
+import android.app.Application;
+
 import java.util.ArrayList;
 
-import io.paperdb.Paper;
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import nickerman.com.dictionary2.WordItem;
-import nickerman.com.dictionary2.base.Constants;
 import nickerman.com.dictionary2.navigation.Navigator;
 import nickerman.com.dictionary2.navigation.Screen;
 import nickerman.com.dictionary2.navigation.ScreenType;
+import nickerman.com.dictionary2.room.entity.TranslateWord;
+import nickerman.com.dictionary2.room.WordDataSource;
 
 
 public class AddWordPresenter implements AddWordContract.Presenter {
@@ -19,10 +21,12 @@ public class AddWordPresenter implements AddWordContract.Presenter {
     private ArrayList<WordItem> wordItemList;
     private CompositeDisposable subscriptions;
     private Navigator navigator;
+    private WordDataSource mWordDataSource;
 
-    public AddWordPresenter() {
+    public AddWordPresenter(Application application) {
+       /* mWordDataSource = new WordDataSource(application);*/
 
-        wordItemList = Paper.book().read(Constants.WORD_BOOK, new ArrayList<>());
+        /* wordItemList = Paper.book().read(Constants.WORD_BOOK, new ArrayList<>());*/
     }
 
     @Override
@@ -42,13 +46,20 @@ public class AddWordPresenter implements AddWordContract.Presenter {
             @Override
             public void onNext(Object o) {
                 if (view.getTranslatedWord().length() > 0) {
-                    WordItem item = new WordItem();
+
+                    TranslateWord translateWord = new TranslateWord(view.getEnglishWord(), view.getTranslatedWord());
+
+                    mWordDataSource.insertWord(translateWord);
+                    navigator.navigateTo(Screen.START_ACTIVITY, ScreenType.ACTIVITY);
+
+
+                   /* WordItem item = new WordItem();
                     item.setEnglishWord(view.getEnglishWord());
                     item.setTranslateWord(view.getTranslatedWord());
                     item.setNumber(wordItemList.size()); //+1
                     wordItemList.add(item);
                     Paper.book().write(Constants.WORD_BOOK, wordItemList);
-                    navigator.navigateTo(Screen.START_ACTIVITY, ScreenType.ACTIVITY);
+                    navigator.navigateTo(Screen.START_ACTIVITY, ScreenType.ACTIVITY);*/
                 }
             }
 

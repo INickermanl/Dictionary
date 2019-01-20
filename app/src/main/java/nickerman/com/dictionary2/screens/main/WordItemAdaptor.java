@@ -9,21 +9,25 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nickerman.com.dictionary2.R;
 import nickerman.com.dictionary2.WordItem;
+import nickerman.com.dictionary2.room.entity.TranslateWord;
 
 
 public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHolder> {
 
-    private ArrayList<WordItem> listWords = new ArrayList<>();
+    private List<TranslateWord> listWords;
     private ClickCallback callabck;
 
 
-    public WordItemAdaptor(ArrayList<WordItem> listWord, ClickCallback callback) {
-        this.listWords = listWord;
+    public WordItemAdaptor(List<TranslateWord> listWords, ClickCallback callback) {
         this.callabck = callback;
+        this.listWords = new ArrayList<>();
+        this.listWords = listWords;
     }
+
 
     @NonNull
     @Override
@@ -36,9 +40,9 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (listWords.size() < 0) {
         } else {
-            WordItem item = listWords.get(position);
+            TranslateWord item = listWords.get(position);
 
-            holder.numberWord.setText(item.getNumber() + 1 + " ");
+            holder.numberWord.setText(item.getId() + " ");
             holder.englishWord.setText(item.getEnglishWord() + " ");
             holder.translateWord.setText(item.getTranslateWord() + " ");
             holder.editItem.setOnClickListener(v -> callabck.editItem(position));
@@ -61,8 +65,8 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
 
         public ViewHolder(View itemView) {
             super(itemView);
-            englishWord = itemView.findViewById(R.id.english_words);
-            translateWord = itemView.findViewById(R.id.translate_words);
+            englishWord = itemView.findViewById(R.id.english_word);
+            translateWord = itemView.findViewById(R.id.translate_word);
             numberWord = itemView.findViewById(R.id.number_of_word);
             editItem = itemView.findViewById(R.id.edit);
             deliteItem = itemView.findViewById(R.id.delete);

@@ -21,8 +21,8 @@ public class AddWordView implements AddWordContract.View {
 
     private void initView() {
         addButton = root.findViewById(R.id.add_button);
-        englishWord = root.findViewById(R.id.english_words);
-        translatedWord = root.findViewById(R.id.translate_words);
+        englishWord = root.findViewById(R.id.english_word);
+        translatedWord = root.findViewById(R.id.translate_word);
     }
 
     @Override

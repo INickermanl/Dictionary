@@ -14,19 +14,19 @@ public abstract class TranslateWordRoomDatabase extends RoomDatabase {
 
     public abstract TranslateWordDAO translateWordDAO();
 
-    private static volatile TranslateWordRoomDatabase INSTANCE;
+    private static TranslateWordRoomDatabase INSTANCE;
 
-    public static TranslateWordRoomDatabase getINSTANCE(final Context context){
 
-        if(INSTANCE == null){
-            synchronized (TranslateWordRoomDatabase.class){
-                if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TranslateWordRoomDatabase.class,
-                            "dictionary"
-                            ).build();
-                }
-            }
+    public static TranslateWordRoomDatabase getINSTANCE(final Context context) {
+
+        if (INSTANCE == null) {
+
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                    TranslateWordRoomDatabase.class,
+                    "dictionary"
+            ).fallbackToDestructiveMigration()
+                    .build();
+
         }
 
         return INSTANCE;

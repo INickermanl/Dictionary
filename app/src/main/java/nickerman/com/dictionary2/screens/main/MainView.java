@@ -11,11 +11,12 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import nickerman.com.dictionary2.R;
-import nickerman.com.dictionary2.WordItem;
 import nickerman.com.dictionary2.base.App;
+import nickerman.com.dictionary2.room.entity.TranslateWord;
 
 
 public class MainView implements MainContract.View {
@@ -43,14 +44,15 @@ public class MainView implements MainContract.View {
     }
 
     @Override
-    public void setWordAdapter(ArrayList<WordItem> listWord, ClickCallback callback) {
+    public void setWordAdapter(List<TranslateWord> listWords, ClickCallback callback) {
         LinearLayoutManager llm = new LinearLayoutManager(App.getInstance(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(llm);
-        adapter = new WordItemAdaptor(listWord, callback);
+        adapter = new WordItemAdaptor(listWords,callback);
         recyclerView.setAdapter(adapter);
 
 
     }
+
 
     @Override
     public void notifyAdapter() {

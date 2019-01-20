@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import nickerman.com.dictionary2.AddWord;
+import nickerman.com.dictionary2.EditItemActivity;
 import nickerman.com.dictionary2.StartActivity;
 import nickerman.com.dictionary2.base.App;
 import nickerman.com.dictionary2.navigation.Screen;
@@ -21,6 +22,8 @@ public class ScreenActivityFactory {
                 return StartActivity.class;
             case ADD_WORD:
                 return AddWord.class;
+            case EDIT:
+                return EditItemActivity.class;
 
 
             default:
