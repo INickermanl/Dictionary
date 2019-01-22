@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nickerman.com.dictionary2.R;
-import nickerman.com.dictionary2.WordItem;
 import nickerman.com.dictionary2.room.entity.TranslateWord;
 
 
@@ -44,8 +43,8 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
 
             holder.englishWord.setText(item.getEnglishWord() + " ");
             holder.translateWord.setText(item.getTranslateWord() + " ");
-            holder.editItem.setOnClickListener(v -> callabck.editItem(position));
-            holder.deliteItem.setOnClickListener(v -> callabck.deleteItem(position));
+            holder.editItem.setOnClickListener(v -> callabck.editItem(item.getId()));
+            holder.deliteItem.setOnClickListener(v -> callabck.deleteItem(item.getId()));
         }
 
     }

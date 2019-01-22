@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import io.paperdb.Paper;
-import nickerman.com.dictionary2.base.App;
 import nickerman.com.dictionary2.base.BaseActivity;
 import nickerman.com.dictionary2.room.TranslateWordRoomDatabase;
 import nickerman.com.dictionary2.screens.main.MainContract;

@@ -10,7 +10,6 @@ import android.widget.ProgressBar;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -68,11 +67,6 @@ public class MainView implements MainContract.View {
     @Override
     public Observable<Object> addWord() {
         return RxView.clicks(fab);
-    }
-
-    @Override
-    public String getSearchWords() {
-        return searchWord.getText().toString().trim();
     }
 
     @Override

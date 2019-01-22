@@ -30,12 +30,12 @@ public class EditItemPresenter implements EditItemContract.Presenter {
     private Navigator navigator;
     private Repository mRepository;
     private TranslateWord updateTranslateWord;
-    private int position;
+    private int idInDB;
     private List<TranslateWord> translateWordList = new ArrayList<>();
 
 
-    public EditItemPresenter(int position, TranslateWordRoomDatabase translateWordRoomDatabase) {
-        this.position = position;
+    public EditItemPresenter(int idInDB, TranslateWordRoomDatabase translateWordRoomDatabase) {
+        this.idInDB = idInDB;
         this.mRepository = Repository.getInstance(WordDataSource.getInstance(translateWordRoomDatabase.translateWordDAO()));
 
     }
@@ -51,23 +51,22 @@ public class EditItemPresenter implements EditItemContract.Presenter {
 
     private void initView() {
         view.setTextChangeWordAction();
-        loadAllData();
+        //loadAllData();
 
-        // getWordByPosition();
+         getWordByPosition();
 
     }
 
     private void getWordByPosition() {
-        Disposable disposable = mRepository.getTranslateWordById(position)
+        Disposable disposable = mRepository.getTranslateWordById(idInDB)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Consumer<TranslateWord>() {
                     @Override
                     public void accept(TranslateWord translateWord) throws Exception {
                         updateTranslateWord = translateWord;
-                        view.setTranslateWord(translateWord.getEnglishWord());
+                        view.setTranslateWord(translateWord.getTranslateWord());
                         view.setEnglishWord(translateWord.getEnglishWord());
-
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -87,9 +86,16 @@ public class EditItemPresenter implements EditItemContract.Presenter {
                     @Override
                     public void accept(List<TranslateWord> translateWords) throws Exception {
                         translateWordList = translateWords;
-                        Log.d("data", translateWordList.get(position).getEnglishWord());
-                        view.setTranslateWord(translateWordList.get(position).getTranslateWord());
-                        view.setEnglishWord(translateWordList.get(position).getEnglishWord());
+                        //find needed item
+                        for (TranslateWord translateWord : translateWordList) {
+                            if (translateWord.getId() == idInDB) {
+
+                                Log.d("data",translateWord.getId() + " ");
+                                view.setTranslateWord(translateWord.getTranslateWord());
+                                view.setEnglishWord(translateWord.getEnglishWord());
+                            }
+                        }
+
                     }
                 });
 
@@ -109,9 +115,7 @@ public class EditItemPresenter implements EditItemContract.Presenter {
                 Disposable disposable = Observable.create(new ObservableOnSubscribe<Object>() {
                     @Override
                     public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                        //get updating item
-                        updateTranslateWord = translateWordList.get(position);
-                        //set him data
+                        //set him new data
                         updateTranslateWord.setTranslateWord(view.getTranslateWord());
                         updateTranslateWord.setEnglishWord(view.getEnglishWord());
 

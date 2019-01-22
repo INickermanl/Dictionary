@@ -34,7 +34,6 @@ public class MainPresenter implements MainContract.Presenter {
     private CompositeDisposable subscriptions;
     private Navigator navigator;
     private ClickCallback clickCallback;
-    private WordDataSource mWordDataSource;
 
     //new
     private Repository mRepository;
@@ -55,8 +54,11 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void deleteItem(int position) {
-                TranslateWord deleteWord = listTranslateWords.get(position);
-                deleteWord(deleteWord);
+               /* TranslateWord deleteWord = listTranslateWords.get(position);*/
+
+
+                //deleteWord(deleteWord);
+
             }
         };
     }
@@ -119,7 +121,8 @@ public class MainPresenter implements MainContract.Presenter {
 
         subscriptions.add(disposable);
     }
-        //update list with data and create new with notify adapter
+
+    //update list with data and create new with notify adapter
     private void onGetAllWordSuccess(List<TranslateWord> translateWords) {
         listTranslateWords.clear();
         listTranslateWords.addAll(translateWords);
@@ -139,32 +142,48 @@ public class MainPresenter implements MainContract.Presenter {
 
                     @Override
                     public void onNext(CharSequence charSequence) {
-                        /*view.showProgressBar(true);
+                        view.showProgressBar(true);
 
 
-                        String searchWord = charSequence.toString().trim();
-                        ArrayList<WordItem> searchingListWord = new ArrayList<>();
+                        String searchWord = charSequence.toString().trim().toLowerCase();
 
-                        for (WordItem item : listWords) {
-                            String englishWord = item.getEnglishWord();
 
-                            if (englishWord.length() >= searchWord.length()) {
+                        List<TranslateWord> searchingListWord = new ArrayList<>();
+
+                        for (TranslateWord item : listTranslateWords) {
+
+                            String englishWord = item.getEnglishWord().toLowerCase();
+                            String translateWord = item.getTranslateWord().toLowerCase();
+                            int counter = 0;
+
+
+                            if (searchWord.length() <= englishWord.length()) {
                                 if (searchWord.equals(englishWord.substring(0, searchWord.length()))) {
                                     searchingListWord.add(item);
+                                    counter++;
                                 }
                             }
 
+                            if (counter == 0) {
+                                if (searchWord.length() <= translateWord.length()) {
+                                    if (searchWord.equals(translateWord.substring(0, searchWord.length()))) {
+                                        searchingListWord.add(item);
+                                    }
+
+                                }
+                            }
                         }
+
 
                         //setListWords
                         if (searchingListWord.size() > 0) {
                             view.setWordAdapter(searchingListWord, clickCallback);
                         } else {
-                            view.setWordAdapter(listWords, clickCallback);
+                            view.setWordAdapter(listTranslateWords, clickCallback);
                         }
 
 
-                        view.showProgressBar(false);*/
+                        view.showProgressBar(false);
 
                     }
 

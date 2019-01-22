@@ -17,7 +17,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import nickerman.com.dictionary2.WordItem;
 import nickerman.com.dictionary2.navigation.Navigator;
 import nickerman.com.dictionary2.navigation.Screen;
 import nickerman.com.dictionary2.navigation.ScreenType;

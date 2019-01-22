@@ -1,15 +1,12 @@
 package nickerman.com.dictionary2;
 
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import nickerman.com.dictionary2.base.BaseActivity;
 import nickerman.com.dictionary2.base.Constants;
 import nickerman.com.dictionary2.room.TranslateWordRoomDatabase;
-import nickerman.com.dictionary2.room.entity.TranslateWord;
 import nickerman.com.dictionary2.screens.edit_item.EditItemContract;
 import nickerman.com.dictionary2.screens.edit_item.EditItemPresenter;
 import nickerman.com.dictionary2.screens.edit_item.EditItemView;

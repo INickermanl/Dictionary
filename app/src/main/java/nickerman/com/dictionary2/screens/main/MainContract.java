@@ -1,8 +1,6 @@
 package nickerman.com.dictionary2.screens.main;
 
-import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -17,8 +15,6 @@ public interface MainContract {
         Observable<CharSequence> search();
 
         void setWordAdapter(List<TranslateWord> listWords, ClickCallback callback);
-
-        String getSearchWords();
 
         void showProgressBar(boolean show);
 
