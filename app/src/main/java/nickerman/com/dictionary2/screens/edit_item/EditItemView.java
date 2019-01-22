@@ -55,4 +55,9 @@ public class EditItemView implements EditItemContract.View {
     public void setTranslateWord(String translateWord) {
             this.translateWord.setText(translateWord);
     }
+
+    @Override
+    public void setTextChangeWordAction() {
+        this.textChangeWordAction.setText("edit");
+    }
 }

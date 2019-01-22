@@ -17,8 +17,8 @@ import nickerman.com.dictionary2.room.entity.TranslateWord;
 public interface TranslateWordDAO {
 
 
-    @Query("SELECT * FROM words WHERE id=:translateId")
-    Flowable<TranslateWord> getTranslateWordById(int translateId);
+    @Query("SELECT * FROM words WHERE  id = :id")
+    Flowable<TranslateWord> getTranslateWordById(int id);
 
     @Query("SELECT * FROM words")
     Flowable<List<TranslateWord>> getAllWords();

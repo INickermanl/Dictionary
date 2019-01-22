@@ -16,6 +16,7 @@ public interface EditItemContract {
 
         void setTranslateWord(String translateWord);
 
+        void setTextChangeWordAction();
     }
 
     interface Presenter {

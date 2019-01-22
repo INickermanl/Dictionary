@@ -101,6 +101,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void loadData() {
+        //get all data into DB
         Disposable disposable = mRepository.getAllWords()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -118,7 +119,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         subscriptions.add(disposable);
     }
-
+        //update list with data and create new with notify adapter
     private void onGetAllWordSuccess(List<TranslateWord> translateWords) {
         listTranslateWords.clear();
         listTranslateWords.addAll(translateWords);
@@ -186,7 +187,7 @@ public class MainPresenter implements MainContract.Presenter {
 
             @Override
             public void onNext(Object o) {
-                //change
+                //navigate to add activity
                 navigator.navigateTo(Screen.ADD_WORD, ScreenType.ACTIVITY);
             }
 
