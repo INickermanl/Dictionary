@@ -42,7 +42,6 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
         } else {
             TranslateWord item = listWords.get(position);
 
-            holder.numberWord.setText(item.getId() + " ");
             holder.englishWord.setText(item.getEnglishWord() + " ");
             holder.translateWord.setText(item.getTranslateWord() + " ");
             holder.editItem.setOnClickListener(v -> callabck.editItem(position));
@@ -59,7 +58,6 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView englishWord;
         private TextView translateWord;
-        private TextView numberWord;
         private AppCompatImageView deliteItem;
         private AppCompatImageView editItem;
 
@@ -67,7 +65,6 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
             super(itemView);
             englishWord = itemView.findViewById(R.id.english_word);
             translateWord = itemView.findViewById(R.id.translate_word);
-            numberWord = itemView.findViewById(R.id.number_of_word);
             editItem = itemView.findViewById(R.id.edit);
             deliteItem = itemView.findViewById(R.id.delete);
         }

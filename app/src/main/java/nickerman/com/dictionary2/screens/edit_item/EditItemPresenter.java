@@ -1,6 +1,9 @@
 package nickerman.com.dictionary2.screens.edit_item;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,7 +20,6 @@ public class EditItemPresenter implements EditItemContract.Presenter {
     public void start(EditItemContract.View view) {
         this.view = view;
         subscriptions = new CompositeDisposable();
-
         initAction();
 
     }
@@ -36,7 +38,7 @@ public class EditItemPresenter implements EditItemContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                Log.d("Error changeWordAction",e.getLocalizedMessage());
+                Log.d("Error changeWordAction", e.getLocalizedMessage());
             }
 
             @Override

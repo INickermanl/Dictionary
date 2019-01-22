@@ -8,13 +8,10 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
 import nickerman.com.dictionary2.room.entity.TranslateWord;
-
 
 @Dao
 public interface TranslateWordDAO {
