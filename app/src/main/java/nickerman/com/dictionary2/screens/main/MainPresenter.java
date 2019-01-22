@@ -1,8 +1,6 @@
 package nickerman.com.dictionary2.screens.main;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -34,6 +32,7 @@ public class MainPresenter implements MainContract.Presenter {
     private CompositeDisposable subscriptions;
     private Navigator navigator;
     private ClickCallback clickCallback;
+    private List<TranslateWord> listAllWords = new ArrayList<>();
 
     //new
     private Repository mRepository;
@@ -53,21 +52,19 @@ public class MainPresenter implements MainContract.Presenter {
             }
 
             @Override
-            public void deleteItem(int position) {
-               /* TranslateWord deleteWord = listTranslateWords.get(position);*/
-
-
-                //deleteWord(deleteWord);
+            public void deleteItem(int position, int idDeletedWord) {
+                getWordByPositionAndDeleteWord(idDeletedWord);
+                listTranslateWords.remove(position);
 
             }
         };
     }
 
-    private void deleteWord(TranslateWord deleteWord) {
+    private void deleteWord(TranslateWord deletedWord) {
         Disposable disposable = Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(ObservableEmitter<Object> emitter) throws Exception {
-                mRepository.deleteWord(deleteWord);
+                mRepository.deleteWord(deletedWord);
                 emitter.onComplete();
             }
         }).observeOn(AndroidSchedulers.mainThread())
@@ -92,6 +89,25 @@ public class MainPresenter implements MainContract.Presenter {
 
     }
 
+    private void getWordByPositionAndDeleteWord(int idInDB) {
+        Disposable disposable = mRepository.getTranslateWordById(idInDB)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<TranslateWord>() {
+                    @Override
+                    public void accept(TranslateWord translateWord) throws Exception {
+                        deleteWord(translateWord);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.d("data load", "load data field");
+                    }
+                });
+
+        subscriptions.add(disposable);
+    }
+
     @Override
     public void start(MainContract.View view) {
         this.view = view;
@@ -111,6 +127,7 @@ public class MainPresenter implements MainContract.Presenter {
                     @Override
                     public void accept(List<TranslateWord> translateWords) throws Exception {
                         onGetAllWordSuccess(translateWords);
+                        getAllWords(translateWords);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -120,6 +137,11 @@ public class MainPresenter implements MainContract.Presenter {
                 });
 
         subscriptions.add(disposable);
+    }
+
+    private void getAllWords(List<TranslateWord> translateWords) {
+        listAllWords.clear();
+        listAllWords.addAll(translateWords);
     }
 
     //update list with data and create new with notify adapter
@@ -144,18 +166,13 @@ public class MainPresenter implements MainContract.Presenter {
                     public void onNext(CharSequence charSequence) {
                         view.showProgressBar(true);
 
-
                         String searchWord = charSequence.toString().trim().toLowerCase();
-
-
                         List<TranslateWord> searchingListWord = new ArrayList<>();
 
-                        for (TranslateWord item : listTranslateWords) {
-
+                        for (TranslateWord item : listAllWords) {
                             String englishWord = item.getEnglishWord().toLowerCase();
                             String translateWord = item.getTranslateWord().toLowerCase();
                             int counter = 0;
-
 
                             if (searchWord.length() <= englishWord.length()) {
                                 if (searchWord.equals(englishWord.substring(0, searchWord.length()))) {
@@ -174,17 +191,13 @@ public class MainPresenter implements MainContract.Presenter {
                             }
                         }
 
-
                         //setListWords
                         if (searchingListWord.size() > 0) {
-                            view.setWordAdapter(searchingListWord, clickCallback);
+                            onGetAllWordSuccess(searchingListWord);
                         } else {
-                            view.setWordAdapter(listTranslateWords, clickCallback);
+                            loadData();
                         }
-
-
                         view.showProgressBar(false);
-
                     }
 
                     @Override

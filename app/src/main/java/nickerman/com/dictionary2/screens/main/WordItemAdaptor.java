@@ -44,7 +44,7 @@ public class WordItemAdaptor extends RecyclerView.Adapter<WordItemAdaptor.ViewHo
             holder.englishWord.setText(item.getEnglishWord() + " ");
             holder.translateWord.setText(item.getTranslateWord() + " ");
             holder.editItem.setOnClickListener(v -> callabck.editItem(item.getId()));
-            holder.deliteItem.setOnClickListener(v -> callabck.deleteItem(item.getId()));
+            holder.deliteItem.setOnClickListener(v -> callabck.deleteItem(position,item.getId()));
         }
 
     }
