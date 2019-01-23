@@ -2,20 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:background="@drawable/bg_edit_text"
+    android:layout_height="80dp"
+    android:layout_marginBottom="8dp">
 
 
     <TextView
         android:id="@+id/english_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
         android:text="Preceding"
         android:textColor="@color/colorBlack"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/translate_word"
+        app:layout_constraintBottom_toTopOf="@id/translate_word"
+        app:layout_constraintEnd_toStartOf="@id/edit_constraint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,15 +24,14 @@
         android:id="@+id/translate_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:text="Предшестующий"
         android:textColor="@color/colorBlack"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/edit_constraint"
-        app:layout_constraintStart_toEndOf="@id/english_word"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/english_word" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/edit_constraint"
