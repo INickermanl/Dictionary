@@ -60,6 +60,11 @@ public class MainView implements MainContract.View {
     }
 
     @Override
+    public void setEmptyTextSearchField() {
+        this.searchWord.setText("");
+    }
+
+    @Override
     public Observable<CharSequence> search() {
         return RxTextView.textChanges(searchWord);
     }

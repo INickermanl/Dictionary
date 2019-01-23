@@ -19,6 +19,7 @@ public interface MainContract {
         void showProgressBar(boolean show);
 
         void notifyAdapter();
+        void setEmptyTextSearchField();
 
     }
 

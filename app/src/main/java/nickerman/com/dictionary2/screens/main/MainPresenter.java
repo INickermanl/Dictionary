@@ -54,7 +54,7 @@ public class MainPresenter implements MainContract.Presenter {
             @Override
             public void deleteItem(int position, int idDeletedWord) {
                 getWordByPositionAndDeleteWord(idDeletedWord);
-                listTranslateWords.remove(position);
+                view.setEmptyTextSearchField();
 
             }
         };

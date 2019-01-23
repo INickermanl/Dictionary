@@ -3,7 +3,6 @@ package nickerman.com.dictionary2;
 import android.os.Bundle;
 import android.view.View;
 
-import io.paperdb.Paper;
 import nickerman.com.dictionary2.base.BaseActivity;
 import nickerman.com.dictionary2.room.TranslateWordRoomDatabase;
 import nickerman.com.dictionary2.screens.main.MainContract;
@@ -21,7 +20,6 @@ public class StartActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         this.root = findViewById(R.id.root);
-        Paper.init(this);
         view = new MainView(root);
         TranslateWordRoomDatabase translateWordRoomDatabase = TranslateWordRoomDatabase.getINSTANCE(this);
         presenter = new MainPresenter(translateWordRoomDatabase);
